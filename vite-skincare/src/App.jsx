@@ -3,8 +3,21 @@
 import { useState } from 'react'
 import { DragDropContext, Draggable } from 'react-beautiful-dnd'
 import { StrictModeDroppable as Droppable } from './helpers/StrictModeDroppable'
+import styled from 'styled-components'
 import './App.css'
 
+const Container = styled.div`
+  display:flex;
+  flex-direction: row;
+`;
+
+const RoutineStyle = styled.div`
+  flex-direction: column;
+  margin: 8px;
+  width: 220px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+`;
 
 const PRODUCTS = [
   { id: 1, step: "Cleanse", name: "Senka Perfect Whip Cleanser" },
@@ -94,20 +107,24 @@ function App() {
   }
 
   return (
-    <div>
+
+    <Container>
+
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        <div>
+
+        <RoutineStyle>
           <h2>Sample Routine</h2>
           <RoutineTable products={products} routine="Sample" />
-        </div>
+        </RoutineStyle>
 
-        <div>
+        <RoutineStyle>
           <h2>Build Your Own Routine</h2>
           <RoutineTable products={products} routine="Custom" />
-        </div>
+        </RoutineStyle>
+
       </DragDropContext>
 
-    </div >
+    </Container >
   );
 }
 
