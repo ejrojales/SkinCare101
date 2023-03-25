@@ -19,48 +19,72 @@ const RoutineStyle = styled.div`
   border-radius: 2px;
 `;
 
-const PRODUCTS = [
-  { id: 0, step: "Cleanse", name: "Senka Perfect Whip Cleanser" },
-  { id: 1, step: "Cleanse", name: "Cerave Acne Foaming Cleanser" },
-  { id: 2, step: "Moisturize", name: "Aestura AtoBarrier Moisturizer" },
-  { id: 3, step: "Protect", name: "Round Lab Birch Juice Sunscreen" },
+
+const SAMPLEPRODUCTS = [
+  {
+    "SampleCleanse": [
+      { id: 0, step: "Cleanse", name: "Senka Perfect Whip Cleanser" },
+      { id: 1, step: "Cleanse", name: "Cerave Acne Foaming Cleanser" },
+      { id: 2, step: "Cleanse", name: "Cosrx Low-pH Good Morning Cleanser" }
+    ]
+  },
+  {
+    "SampleMoisturize": [
+      { id: 3, step: "Moisturize", name: "Aestura AtoBarrier Moisturizer" }
+
+    ]
+  },
+  {
+    "SampleProtect": [
+      { id: 4, step: "Protect", name: "Round Lab Birch Juice Sunscreen" }
+    ]
+  }
+]
+
+
+const CUSTOMPRODUCTS = [
+  { "CustomCleanse": [] },
+  { "CustomMoisturize": [] },
+  { "CustomProtect": [] }
 ];
 
 
-const CUSTOMPRODUCTS = [];
-
-
-function RoutineTable({ products, customProducts, routine }) {
+function RoutineTable({ sampleProducts, customProducts, routine }) {
 
   return (
     <div>
-      <RoutineStep products={products} customProducts={customProducts} step="Cleanse" routine={routine} />
-      <RoutineStep products={products} customProducts={customProducts} step="Moisturize" routine={routine} />
-      <RoutineStep products={products} customProducts={customProducts} step="Protect" routine={routine} />
+      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Cleanse" routine={routine} />
+      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Moisturize" routine={routine} />
+      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Protect" routine={routine} />
     </div>
   );
 }
 
-function RoutineStep({ products, customProducts, step, routine }) {
+function RoutineStep({ sampleProducts, customProducts, step, routine }) {
 
   let stepProducts = [];
 
   if (routine === "Sample") {
-    // for each product, if product.step == step: append product to stepProducts
-    products.forEach((product) => {
-      if (product.step == step) {
-        stepProducts.push(product);
-      };
-    });
+
+    for (let i = 0; i < sampleProducts.length; i++) {
+      if (sampleProducts[i].hasOwnProperty(routine + step)) {
+        sampleProducts[i][routine + step].forEach(product => {
+          stepProducts.push(product)
+        })
+
+      }
+    }
   };
 
   if (routine === "Custom") {
-    // for each product, if product.step == step: append product to stepProducts
-    customProducts.forEach((product) => {
-      if (product.step == step) {
-        stepProducts.push(product);
-      };
-    });
+
+    for (let i = 0; i < customProducts.length; i++) {
+      if (customProducts[i].hasOwnProperty(routine + step)) {
+        customProducts[i][routine + step].forEach(product => {
+          stepProducts.push(product)
+        })
+      }
+    }
   };
 
   // each droppableId needs to be unique
@@ -104,7 +128,7 @@ function RoutineProduct({ products }) {
 
 function App() {
 
-  const [products, updateProducts] = useState(PRODUCTS);
+  const [sampleProducts, updateProducts] = useState(SAMPLEPRODUCTS);
   const [customProducts, updateCustomProducts] = useState(CUSTOMPRODUCTS);
   const hashmap = {
     "SampleCleanse": "CustomCleanse",
@@ -118,19 +142,62 @@ function App() {
 
     console.log(result)
 
+    // Movement from sample to custom routine
     if (result.destination.droppableId === hashmap[result.source.droppableId]) {
 
-      const sample = Array.from(products); // Create a copy array of sample products
-      const custom = Array.from(customProducts); // Create a copy array of custom products
+      let sample = Array.from(sampleProducts); // Create a copy array of sample products
+      let custom = Array.from(customProducts); // Create a copy array of custom products
 
-      let index = sample.findIndex(product => product.id.toString() === result.draggableId)
-      const [reorderedItem] = sample.splice(index, 1); // Remove the item from the sample products
+      for (let i = 0; i < sample.length; i++) {
+        if (sample[i].hasOwnProperty(result.source.droppableId)) {
+          let index = sample[i][result.source.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+          const [reorderedItem] = sample[i][result.source.droppableId].splice(index, 1) // Remove the item from the sample products
 
-      custom.splice(0, 0, reorderedItem); // Add the item to the customProducts
+          // Insert the item into the custom routine
+          for (let x = 0; x < custom.length; x++) {
+            if (custom[x].hasOwnProperty(result.destination.droppableId)) {
+              custom[x][result.destination.droppableId].push(reorderedItem);
+            }
+          }
+        }
+      }
 
       updateProducts(sample); // update the state of sample products
       updateCustomProducts(custom); // update the state of sample products
     };
+
+    // Movement between same routine
+    if (result.source.droppableId === result.destination.droppableId) {
+
+      let sample = Array.from(sampleProducts); // Create a copy of sample products
+      let custom = Array.from(customProducts); // Create a copy of custom products
+
+      // if movement betwwen sample routine, reorder sample products and update state of sample products
+      if (result.source.droppableId in hashmap) {
+
+        for (let i = 0; i < sample.length; i++) {
+          if (sample[i].hasOwnProperty(result.destination.droppableId)) {
+            let index = sample[i][result.destination.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+            const [reorderedItem] = sample[i][result.destination.droppableId].splice(index, 1); // Remove the item from the sample products
+            sample[i][result.destination.droppableId].splice(result.destination.index, 0, reorderedItem); // Add the item to the reordered index
+          }
+        }
+        updateCustomProducts(custom); // update the state of products to re-render the newly updated products
+      }
+
+      // if movement between custom routine, reorder custom products and update state of custom products
+      if (!(result.source.droppableId in hashmap)) {
+
+        for (let i = 0; i < custom.length; i++) {
+          if (custom[i].hasOwnProperty(result.destination.droppableId)) {
+            let index = custom[i][result.destination.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+            const [reorderedItem] = custom[i][result.destination.droppableId].splice(index, 1); // Remove the item from the custom products
+            custom[i][result.destination.droppableId].splice(result.destination.index, 0, reorderedItem); // Add the item to the reordered index
+          }
+        }
+        updateCustomProducts(custom); // update the state of products to re-render the newly updated products
+      }
+    }
 
   }
 
@@ -142,12 +209,12 @@ function App() {
 
         <RoutineStyle>
           <h2>Sample Routine</h2>
-          <RoutineTable products={products} customProducts={customProducts} routine="Sample" />
+          <RoutineTable sampleProducts={sampleProducts} customProducts={customProducts} routine="Sample" />
         </RoutineStyle>
 
         <RoutineStyle>
           <h2>Build Your Own Routine</h2>
-          <RoutineTable products={products} customProducts={customProducts} routine="Custom" />
+          <RoutineTable sampleProducts={sampleProducts} customProducts={customProducts} routine="Custom" />
         </RoutineStyle>
 
       </DragDropContext>
