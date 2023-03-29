@@ -138,7 +138,35 @@ function App() {
 
   function handleOnDragEnd(result) {
 
+    // Dragging a custom product to a non-droppable zone, returns that product back to the sample products
+    if (!(result.source.droppableId in hashmap) && !result.destination) {
+
+      let sample = Array.from(sampleProducts); // Create a copy array of sample products
+      let custom = Array.from(customProducts); // Create a copy array of custom products
+
+      for (let i = 0; i < custom.length; i++) {
+        if (custom[i].hasOwnProperty(result.source.droppableId)) {
+          let index = custom[i][result.source.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+          const [reorderedItem] = custom[i][result.source.droppableId].splice(index, 1) // Remove the item from the sample products
+
+          // Insert the item into the sample routine
+          for (let x = 0; x < sample.length; x++) {
+            if (sample[x].hasOwnProperty("Sample" + reorderedItem["step"])) {
+              sample[x]["Sample" + reorderedItem["step"]].push(reorderedItem);
+              break;
+            }
+          }
+          break;
+        }
+      }
+
+      updateProducts(sample); // update the state of sample products
+      updateCustomProducts(custom); // update the state of sample products
+    }
+
     if (!result.destination) return;
+
+
 
     console.log(result)
 
@@ -172,7 +200,7 @@ function App() {
       let sample = Array.from(sampleProducts); // Create a copy of sample products
       let custom = Array.from(customProducts); // Create a copy of custom products
 
-      // if movement betwwen sample routine, reorder sample products and update state of sample products
+      // if movement between sample routine, reorder sample products and update state of sample products
       if (result.source.droppableId in hashmap) {
 
         for (let i = 0; i < sample.length; i++) {
