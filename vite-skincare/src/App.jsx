@@ -138,8 +138,8 @@ function App() {
 
   function handleOnDragEnd(result) {
 
-    // Dragging a custom product to a non-droppable zone, returns that product back to the sample products
-    if (!(result.source.droppableId in hashmap) && !result.destination) {
+    // Dragging a custom product to a non-droppable zone or back to the sample routine zone, returns that product back to the sample products
+    if ((!(result.source.droppableId in hashmap) && !result.destination) || ((!(result.source.droppableId in hashmap) && result.destination) && result.destination.droppableId in hashmap)) {
 
       let sample = Array.from(sampleProducts); // Create a copy array of sample products
       let custom = Array.from(customProducts); // Create a copy array of custom products
