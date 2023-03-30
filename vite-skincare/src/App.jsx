@@ -1,8 +1,8 @@
 "use strict";
 
 import { useState } from 'react'
-import { DragDropContext, Draggable } from 'react-beautiful-dnd'
-import { StrictModeDroppable as Droppable } from './helpers/StrictModeDroppable'
+import { DragDropContext } from 'react-beautiful-dnd'
+import RoutineTable from './components/RoutineTable.jsx'
 import styled from 'styled-components'
 import './App.css'
 
@@ -48,83 +48,6 @@ const CUSTOMPRODUCTS = [
   { "CustomProtect": [] }
 ];
 
-
-function RoutineTable({ sampleProducts, customProducts, routine }) {
-
-  return (
-    <div>
-      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Cleanse" routine={routine} />
-      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Moisturize" routine={routine} />
-      <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Protect" routine={routine} />
-    </div>
-  );
-}
-
-function RoutineStep({ sampleProducts, customProducts, step, routine }) {
-
-  let stepProducts = [];
-
-  if (routine === "Sample") {
-
-    for (let i = 0; i < sampleProducts.length; i++) {
-      if (sampleProducts[i].hasOwnProperty(routine + step)) {
-        sampleProducts[i][routine + step].forEach(product => {
-          stepProducts.push(product)
-        })
-
-      }
-    }
-  };
-
-  if (routine === "Custom") {
-
-    for (let i = 0; i < customProducts.length; i++) {
-      if (customProducts[i].hasOwnProperty(routine + step)) {
-        customProducts[i][routine + step].forEach(product => {
-          stepProducts.push(product)
-        })
-      }
-    }
-  };
-
-  // each droppableId needs to be unique
-  let dropId = routine + step;
-  return (
-    <>
-      <h2>{step}</h2>
-      <Droppable droppableId={dropId}>
-
-        {(provided) => (
-          <section {...provided.droppableProps} ref={provided.innerRef}>
-
-            <RoutineProduct products={stepProducts} />
-            {provided.placeholder}
-          </section>
-        )}
-      </Droppable>
-    </>
-
-  );
-}
-
-function RoutineProduct({ products }) {
-
-  return (
-
-    <ul>
-      {products.map((product, index) => {
-        return (
-          <Draggable key={product.id} draggableId={product.id.toString()} index={index}>
-            {(provided) => (
-              <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>{product.name}</li>
-            )}
-          </Draggable>
-        )
-      })}
-    </ul>
-
-  );
-}
 
 function App() {
 
