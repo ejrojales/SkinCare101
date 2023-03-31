@@ -33,6 +33,18 @@ body {
   min-height: 100vh;
 }
 
+.form {
+  float: left;
+  list-style: none;
+}
+
+.hidden-form {
+  visibility: hidden;
+}
+
+.show-form {
+  visibility: visible !important;
+}
 
 button {
   border-radius: 8px;
