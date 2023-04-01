@@ -53,13 +53,14 @@ function App() {
 
   const [sampleProducts, updateProducts] = useState(SAMPLEPRODUCTS);
   const [customProducts, updateCustomProducts] = useState(CUSTOMPRODUCTS);
-  const hashmap = {
-    "SampleCleanse": "CustomCleanse",
-    "SampleMoisturize": "CustomMoisturize",
-    "SampleProtect": "CustomProtect"
-  }
+  const [productId, setProductId] = useState(5)
 
   function handleOnDragEnd(result) {
+    const hashmap = {
+      "SampleCleanse": "CustomCleanse",
+      "SampleMoisturize": "CustomMoisturize",
+      "SampleProtect": "CustomProtect"
+    }
 
     // Dragging a custom product to a non-droppable zone or back to the sample routine zone, returns that product back to the sample products
     if ((!(result.source.droppableId in hashmap) && !result.destination) || ((!(result.source.droppableId in hashmap) && result.destination) && result.destination.droppableId in hashmap)) {
@@ -149,7 +150,6 @@ function App() {
         updateCustomProducts(custom); // update the state of products to re-render the newly updated products
       }
     }
-
   }
 
   return (
@@ -165,7 +165,7 @@ function App() {
 
         <RoutineStyle>
           <h2>Build Your Own Routine</h2>
-          <RoutineTable sampleProducts={sampleProducts} customProducts={customProducts} routine="Custom" />
+          <RoutineTable sampleProducts={sampleProducts} customProducts={customProducts} routine="Custom" updateCustomProducts={updateCustomProducts} productId={productId} setProductId={setProductId} />
         </RoutineStyle>
 
       </DragDropContext>
