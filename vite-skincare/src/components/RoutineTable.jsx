@@ -1,14 +1,14 @@
 import RoutineStep from "./RoutineStep";
 
-function RoutineTable({ sampleProducts, customProducts, routine, updateCustomProducts, productId, setProductId }) {
+function RoutineTable({ products, routine, updateProducts, productId, setProductId }) {
 
     return (
         <div>
-            <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Cleanse" routine={routine} updateCustomProducts={updateCustomProducts} productId={productId} setProductId={setProductId} />
+            <RoutineStep products={products} step="Cleanse" routine={routine} updateProducts={updateProducts} productId={productId} setProductId={setProductId} />
 
-            <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Moisturize" routine={routine} updateCustomProducts={updateCustomProducts} productId={productId} setProductId={setProductId} />
+            <RoutineStep products={products} step="Moisturize" routine={routine} updateProducts={updateProducts} productId={productId} setProductId={setProductId} />
 
-            <RoutineStep sampleProducts={sampleProducts} customProducts={customProducts} step="Protect" routine={routine} updateCustomProducts={updateCustomProducts} productId={productId} setProductId={setProductId} />
+            <RoutineStep products={products} step="Protect" routine={routine} updateProducts={updateProducts} productId={productId} setProductId={setProductId} />
         </div>
     );
 }

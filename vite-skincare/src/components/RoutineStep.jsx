@@ -2,7 +2,7 @@ import { StrictModeDroppable as Droppable } from "../helpers/StrictModeDroppable
 import { useRef } from "react";
 import RoutineProduct from "./RoutineProduct";
 
-function RoutineStep({ sampleProducts, customProducts, step, routine, updateCustomProducts, productId, setProductId }) {
+function RoutineStep({ products, step, routine, updateProducts, productId, setProductId }) {
 
 
     // handleClick: 
@@ -15,18 +15,18 @@ function RoutineStep({ sampleProducts, customProducts, step, routine, updateCust
         } else {
 
             // Add a product
-            let newProducts = Array.from(customProducts)
+            let newProducts = Array.from(products)
             for (let i = 0; i < newProducts.length; i++) {
-                if (newProducts[i].hasOwnProperty("Custom" + ref.current.name)) {
+                if (newProducts[i].hasOwnProperty(routine + ref.current.name)) {
                     console.log({ id: productId, step: ref.current.name, name: ref.current.value })
-                    newProducts[i]["Custom" + ref.current.name].push({ id: productId, step: ref.current.name, name: ref.current.value })
+                    newProducts[i][routine + ref.current.name].push({ id: productId, step: ref.current.name, name: ref.current.value })
                 }
             }
             ref.current.value = ""
             ref.current.classList.toggle('show-form')
 
             setProductId(productId + 1)
-            updateCustomProducts(newProducts)
+            updateProducts(newProducts)
         }
     }
 
@@ -34,15 +34,17 @@ function RoutineStep({ sampleProducts, customProducts, step, routine, updateCust
     let dropId = routine + step;
     let stepProducts = [];
 
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].hasOwnProperty(routine + step)) {
+            products[i][routine + step].forEach(product => {
+                stepProducts.push(product)
+            })
+        }
+    };
+
     if (routine === "Sample") {
 
-        for (let i = 0; i < sampleProducts.length; i++) {
-            if (sampleProducts[i].hasOwnProperty(routine + step)) {
-                sampleProducts[i][routine + step].forEach(product => {
-                    stepProducts.push(product)
-                })
-            }
-        };
+
         return (
             <>
                 <h2>{step}</h2>
@@ -59,15 +61,8 @@ function RoutineStep({ sampleProducts, customProducts, step, routine, updateCust
         );
     };
 
-    if (routine === "Custom") {
-
-        for (let i = 0; i < customProducts.length; i++) {
-            if (customProducts[i].hasOwnProperty(routine + step)) {
-                customProducts[i][routine + step].forEach(product => {
-                    stepProducts.push(product)
-                })
-            }
-        }
+    // Display add product button only for custom routines
+    if (routine === "Am" || routine === "Pm") {
 
         return (
             <>
@@ -78,7 +73,7 @@ function RoutineStep({ sampleProducts, customProducts, step, routine, updateCust
                             <RoutineProduct products={stepProducts} />
                             <section className="form">
                                 <li>
-                                    <button className="form-btn" name="name" value="Name" onClick={handleClick}>Add a Product </button>
+                                    <button className="form-btn" name="name" value="Name" onClick={handleClick}>Add a Product</button>
                                     <input className="hidden-form" type="text" name={step} ref={ref}></input>
                                 </li>
                             </section>
