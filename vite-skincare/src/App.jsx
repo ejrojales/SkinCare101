@@ -182,7 +182,6 @@ function App() {
       updateProducts(sample);
     }
 
-
     // Movement between same routine
     if (result.source.droppableId === result.destination.droppableId) {
 
@@ -232,7 +231,74 @@ function App() {
         }
         updatePmProducts(tempPmProducts);
       }
+    } else if
+
+      // Movement AM <-> PM 
+      (!(result.source.droppableId in hashmap)) {
+      let matchingStep = false;
+
+      for (const prop in hashmap) {
+        if ((hashmap[prop].includes(result.source.droppableId)) && hashmap[prop].includes(result.destination.droppableId)) {
+          matchingStep = true;
+        }
+      }
+
+      if (matchingStep === true) {
+
+        // Determine if source product is am or pm
+        let sourceProduct = "pm";
+        for (let y = 0; y < amProducts.length; y++) {
+          if (amProducts[y].hasOwnProperty(result.source.droppableId)) {
+            sourceProduct = "am"
+          }
+        }
+
+        // AM -> PM
+        if (sourceProduct === "am") {
+          let tempAmProducts = Array.from(amProducts);
+          let tempPmProducts = Array.from(pmProducts);
+
+          for (let i = 0; i < tempAmProducts.length; i++) {
+            if (tempAmProducts[i].hasOwnProperty(result.source.droppableId)) {
+              let index = tempAmProducts[i][result.source.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+              const [reorderedItem] = tempAmProducts[i][result.source.droppableId].splice(index, 1) // Remove the item from the am products
+
+              // Insert the item into the pm routine
+              for (let x = 0; x < tempPmProducts.length; x++) {
+                if (tempPmProducts[x].hasOwnProperty(result.destination.droppableId)) {
+                  tempPmProducts[x][result.destination.droppableId].push(reorderedItem);
+                }
+              }
+            }
+          }
+          updateAmProducts(tempAmProducts);
+          updatePmProducts(tempPmProducts);
+        }
+
+        // PM -> AM
+        if (sourceProduct === "pm") {
+          let tempAmProducts = Array.from(amProducts);
+          let tempPmProducts = Array.from(pmProducts);
+
+          for (let i = 0; i < tempPmProducts.length; i++) {
+            if (tempPmProducts[i].hasOwnProperty(result.source.droppableId)) {
+              let index = tempPmProducts[i][result.source.droppableId].findIndex(product => product.id.toString() === result.draggableId)
+              const [reorderedItem] = tempPmProducts[i][result.source.droppableId].splice(index, 1) // Remove the item from the pm products
+
+              // Insert the item into the am routine
+              for (let x = 0; x < tempAmProducts.length; x++) {
+                if (tempAmProducts[x].hasOwnProperty(result.destination.droppableId)) {
+                  tempAmProducts[x][result.destination.droppableId].push(reorderedItem);
+                }
+              }
+            }
+          }
+          updateAmProducts(tempAmProducts);
+          updatePmProducts(tempPmProducts);
+        }
+      }
     }
+
   }
 
   return (
