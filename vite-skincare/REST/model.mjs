@@ -24,9 +24,9 @@ const routineSchema = mongoose.Schema({
     date: { type: Date, default: Date.now },
     hidden: Boolean,
     products: {
-        cleanse: [String],
-        moisturize: [String],
-        protect: [String]
+        cleanse: [],
+        moisturize: [],
+        protect: []
     }
 });
 
