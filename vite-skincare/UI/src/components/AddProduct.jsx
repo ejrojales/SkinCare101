@@ -9,11 +9,11 @@ function AddProduct({ amProds, pmProds, updateAM, updatePM, productID, setProduc
     const [routineStep, setRoutineStep] = useState('Cleanse');
     const [routineTime, setRoutineTime] = useState('');
 
-    function handleSubmit(e) {
+
+    async function handleSubmit(e) {
         // Prevent the browser from reloading the page
         e.preventDefault();
-        // Read the form data
-        console.log(productName, routineStep, routineTime)
+
         if (routineTime === "Am") {
 
             // Add a product

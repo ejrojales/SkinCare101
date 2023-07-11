@@ -314,6 +314,32 @@ function App() {
 
   }
 
+  const saveRoutine = async () => {
+    const newRoutine = {
+      title: "Acne Routine",
+      author: "Emmanuel",
+      comments: [{ "body": "No comment" }],
+      hidden: false,
+      products: {
+        "cleanse": AMPRODUCTS[0].name,
+        "moisturize": AMPRODUCTS[1].name,
+        "protect": AMPRODUCTS[2].name
+      }
+    };
+    const response = await fetch('/routines', {
+      method: 'POST',
+      body: JSON.stringify(newRoutine),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 201) {
+      alert("Successfully added the routine!");
+    } else {
+      alert(`Failed to add routine, status code = ${response.status}`);
+    }
+  };
+
   return (
     <div>
       <Container>
@@ -328,11 +354,13 @@ function App() {
           <RoutineStyle>
             <h2>AM Routine</h2>
             <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
+            <button onClick={saveRoutine}>Save Routine</button>
           </RoutineStyle>
 
           <RoutineStyle>
             <h2>PM Routine</h2>
             <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
+            <button onClick={saveRoutine}>Save Routine</button>
           </RoutineStyle>
 
         </DragDropContext>

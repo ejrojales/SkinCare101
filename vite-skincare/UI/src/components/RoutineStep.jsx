@@ -34,7 +34,6 @@ function RoutineStep({ products, step, routine }) {
         );
     };
 
-    // Display add product button only for custom routines
     if (routine === "Am" || routine === "Pm") {
 
         return (
