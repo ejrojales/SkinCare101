@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import RoutineTable from './components/RoutineTable.jsx'
+import AddProduct from './components/AddProduct.jsx';
 import styled from 'styled-components'
 import './App.css'
 
@@ -314,29 +315,32 @@ function App() {
   }
 
   return (
+    <div>
+      <Container>
 
-    <Container>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
 
-      <DragDropContext onDragEnd={handleOnDragEnd}>
+          <RoutineStyle>
+            <h2>Sample Routine</h2>
+            <RoutineTable products={sampleProducts} routine="Sample" />
+          </RoutineStyle>
 
-        <RoutineStyle>
-          <h2>Sample Routine</h2>
-          <RoutineTable products={sampleProducts} routine="Sample" />
-        </RoutineStyle>
+          <RoutineStyle>
+            <h2>AM Routine</h2>
+            <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
+          </RoutineStyle>
 
-        <RoutineStyle>
-          <h2>AM Routine</h2>
-          <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
-        </RoutineStyle>
+          <RoutineStyle>
+            <h2>PM Routine</h2>
+            <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
+          </RoutineStyle>
 
-        <RoutineStyle>
-          <h2>PM Routine</h2>
-          <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
-        </RoutineStyle>
+        </DragDropContext>
+        <AddProduct amProds={amProducts} pmProds={pmProducts} updateAM={updateAmProducts} updatePM={updatePmProducts} productID={productId} setProductID={setProductId} />
 
-      </DragDropContext>
+      </Container >
+    </div>
 
-    </Container >
   );
 }
 
