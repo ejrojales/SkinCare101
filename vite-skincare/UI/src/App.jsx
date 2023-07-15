@@ -63,17 +63,9 @@ function App() {
   const [sampleProducts, updateProducts] = useState(SAMPLEPRODUCTS);
   const [amProducts, updateAmProducts] = useState(AMPRODUCTS);
   const [pmProducts, updatePmProducts] = useState(PMPRODUCTS);
-  const [responseData, setResponseData] = useState(null)
   const [productId, setProductId] = useState(5)
 
-  // A proxy server is setup in the vit.config file so that all calls with the prefix /api is sent to the backend server.
-  function fetchData() {
-    fetch('/secondRoute')
-      .then(response => response.text())
-      .then(data => setResponseData(data))
-      .then(lambda => alert(responseData))
-      .catch(error => console.error(error))
-  }
+  // A proxy server is setup in the vit.config file so that all calls with a prefix  is sent to the backend server.
 
   function handleOnDragEnd(result) {
 
@@ -314,30 +306,61 @@ function App() {
 
   }
 
-  const saveRoutine = async () => {
-    const newRoutine = {
-      title: "Acne Routine",
-      author: "Emmanuel",
-      comments: [{ "body": "No comment" }],
-      hidden: false,
-      products: {
-        "cleanse": AMPRODUCTS[0].name,
-        "moisturize": AMPRODUCTS[1].name,
-        "protect": AMPRODUCTS[2].name
+  const saveRoutine = async (routineTime) => {
+
+    if (routineTime === "am") {
+
+      const newRoutine = {
+        title: "Acne Routine",
+        author: "Emmanuel",
+        comments: [{ "body": "No comment" }],
+        hidden: false,
+        products: {
+          "cleanse": AMPRODUCTS[0]["AmCleanse"],
+          "moisturize": AMPRODUCTS[1]["AmMoisturize"],
+          "protect": AMPRODUCTS[2]["AmProtect"]
+        }
+      };
+      const response = await fetch('/AMroutines', {
+        method: 'POST',
+        body: JSON.stringify(newRoutine),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 201) {
+        alert("Successfully added the routine!");
+      } else {
+        alert(`Failed to add routine, status code = ${response.status}`);
       }
-    };
-    const response = await fetch('/routines', {
-      method: 'POST',
-      body: JSON.stringify(newRoutine),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.status === 201) {
-      alert("Successfully added the routine!");
+
     } else {
-      alert(`Failed to add routine, status code = ${response.status}`);
+      const newRoutine = {
+        title: "Acne Routine",
+        author: "Emmanuel",
+        comments: [{ "body": "No comment" }],
+        hidden: false,
+        products: {
+          "cleanse": PMPRODUCTS[0]["PmCleanse"],
+          "moisturize": PMPRODUCTS[1]["PmMoisturize"],
+          "protect": PMPRODUCTS[2]["PmProtect"]
+        }
+      };
+      const response = await fetch('/PMroutines', {
+        method: 'POST',
+        body: JSON.stringify(newRoutine),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.status === 201) {
+        alert("Successfully added the routine!");
+      } else {
+        alert(`Failed to add routine, status code = ${response.status}`);
+      }
     }
+
+
   };
 
   return (
@@ -354,13 +377,13 @@ function App() {
           <RoutineStyle>
             <h2>AM Routine</h2>
             <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
-            <button onClick={saveRoutine}>Save Routine</button>
+            <button onClick={(e) => saveRoutine("am")}>Save Routine</button>
           </RoutineStyle>
 
           <RoutineStyle>
             <h2>PM Routine</h2>
             <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
-            <button onClick={saveRoutine}>Save Routine</button>
+            <button onClick={(e) => saveRoutine("pm")}>Save Routine</button>
           </RoutineStyle>
 
         </DragDropContext>

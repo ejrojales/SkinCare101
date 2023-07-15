@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/routines': 'http://localhost:3000',
-      '/secondRoute': 'http://localhost:3000'
+      '/AMroutines': 'http://localhost:3000',
+      '/PMroutines': 'http://localhost:3000'
     }
   }
 

@@ -33,11 +33,17 @@ const routineSchema = mongoose.Schema({
 /**
  * Compile the model from the schema. This must be done after defining the schema.
  */
-const Routine = mongoose.model("Routine", routineSchema);
+const AMRoutine = mongoose.model("am_Routine", routineSchema);
+const PMRoutine = mongoose.model("pm_Routine", routineSchema);
 
-// creates an exercise and returns a promise to save to the database
-const createRoutine = async (title, author, comments, date, hidden, products) => {
-    const routine = new Routine({ title: title, author: author, comments: comments, date: date, hidden: hidden, products: products });
+// creates a routine and returns a promise to save to the database
+const createAMRoutine = async (title, author, comments, date, hidden, products) => {
+    const routine = new AMRoutine({ title: title, author: author, comments: comments, date: date, hidden: hidden, products: products });
+    return routine.save();
+};
+
+const createPMRoutine = async (title, author, comments, date, hidden, products) => {
+    const routine = new PMRoutine({ title: title, author: author, comments: comments, date: date, hidden: hidden, products: products });
     return routine.save();
 };
 
@@ -60,5 +66,5 @@ const deleteById = async (_id) => {
     return result.deletedCount;
 }
 
-export { createRoutine }
+export { createAMRoutine, createPMRoutine }
 
