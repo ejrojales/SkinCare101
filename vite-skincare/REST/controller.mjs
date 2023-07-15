@@ -9,12 +9,15 @@ app.use(express.json());
 const PORT = process.env.PORT;
 
 
-app.get('/api', (req, res) => {
-    res.send('Server home')
+app.post('/AMroutines', (req, res) => {
+    routines.createAMRoutine(req.body.title, req.body.author, req.body.comments, req.body.date, req.body.hidden, req.body.products)
+        .then(routine => {
+            res.status(201).json(routine)
+        })
 });
 
-app.post('/routines', (req, res) => {
-    routines.createRoutine(req.body.title, req.body.author, req.body.comments, req.body.date, req.body.hidden, req.body.products)
+app.post('/PMroutines', (req, res) => {
+    routines.createPMRoutine(req.body.title, req.body.author, req.body.comments, req.body.date, req.body.hidden, req.body.products)
         .then(routine => {
             res.status(201).json(routine)
         })
