@@ -1,7 +1,12 @@
-function Browse() {
+export function Browse() {
     return (
-        <h2>Browse Routines</h2>
-    )
-}
+        <div>
+            <h2>Browse AM Routines</h2>
+        </div>
 
-export default Browse;
+    )
+};
+
+export const dataLoader = async () => {
+    const res = await fetch('/AMroutines');
+}

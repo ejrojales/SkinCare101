@@ -47,8 +47,8 @@ const createPMRoutine = async (title, author, comments, date, hidden, products) 
     return routine.save();
 };
 
-const findExercise = async () => {
-    const query = Exercise.find();
+const findAMRoutine = async () => {
+    const query = AMRoutine.find();
     return query.exec();
 };
 
@@ -66,5 +66,5 @@ const deleteById = async (_id) => {
     return result.deletedCount;
 }
 
-export { createAMRoutine, createPMRoutine }
+export { createAMRoutine, createPMRoutine, findAMRoutine }
 
