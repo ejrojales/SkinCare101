@@ -8,11 +8,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT;
 
-app.get('/AMroutines',
+app.get('/routines',
     (req, res) => {
-        routines.findAMRoutine()
-            .then(amRoutines => {
-                res.send(amRoutines);
+        routines.findRoutines()
+            .then(routineList => {
+                res.send(routineList);
             })
             .catch(error => {
                 console.error(error);
@@ -20,15 +20,8 @@ app.get('/AMroutines',
             });
     });
 
-app.post('/AMroutines', (req, res) => {
-    routines.createAMRoutine(req.body.title, req.body.author, req.body.comments, req.body.date, req.body.hidden, req.body.products)
-        .then(routine => {
-            res.status(201).json(routine)
-        })
-});
-
-app.post('/PMroutines', (req, res) => {
-    routines.createPMRoutine(req.body.title, req.body.author, req.body.comments, req.body.date, req.body.hidden, req.body.products)
+app.post('/routines', (req, res) => {
+    routines.createRoutine(req.body.title, req.body.author, req.body.tag, req.body.comments, req.body.date, req.body.hidden, req.body.products)
         .then(routine => {
             res.status(201).json(routine)
         })

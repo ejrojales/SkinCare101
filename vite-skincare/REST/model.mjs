@@ -20,6 +20,7 @@ db.once("open", () => {
 const routineSchema = mongoose.Schema({
     title: String, // String is shorthand for {type: String}
     author: String,
+    tag: String,
     comments: [{ body: String }],
     date: { type: Date, default: Date.now },
     hidden: Boolean,
@@ -33,22 +34,17 @@ const routineSchema = mongoose.Schema({
 /**
  * Compile the model from the schema. This must be done after defining the schema.
  */
-const AMRoutine = mongoose.model("am_Routine", routineSchema);
-const PMRoutine = mongoose.model("pm_Routine", routineSchema);
+const Routine = mongoose.model("Routine", routineSchema);
 
 // creates a routine and returns a promise to save to the database
-const createAMRoutine = async (title, author, comments, date, hidden, products) => {
-    const routine = new AMRoutine({ title: title, author: author, comments: comments, date: date, hidden: hidden, products: products });
+const createRoutine = async (title, author, tag, comments, date, hidden, products) => {
+    const routine = new Routine({ title: title, author: author, tag: tag, comments: comments, date: date, hidden: hidden, products: products });
     return routine.save();
 };
 
-const createPMRoutine = async (title, author, comments, date, hidden, products) => {
-    const routine = new PMRoutine({ title: title, author: author, comments: comments, date: date, hidden: hidden, products: products });
-    return routine.save();
-};
 
-const findAMRoutine = async () => {
-    const query = AMRoutine.find();
+const findRoutines = async () => {
+    const query = Routine.find();
     return query.exec();
 };
 
@@ -66,5 +62,5 @@ const deleteById = async (_id) => {
     return result.deletedCount;
 }
 
-export { createAMRoutine, createPMRoutine, findAMRoutine }
+export { createRoutine, findRoutines }
 
