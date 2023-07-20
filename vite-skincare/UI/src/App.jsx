@@ -7,16 +7,17 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom';
-import Browse from './pages/Browse.jsx';
+import { Browse, dataLoader } from './pages/Browse.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 import Layout from './pages/Layout.jsx';
 import './App.css'
 import BuildRoutine from './pages/BuildRoutine.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
       <Route index element={<BuildRoutine />} />
-      <Route path="/browse" element={<Browse />} />
+      <Route path="/browse" element={<Browse />} loader={dataLoader} />
     </Route>
   )
 );

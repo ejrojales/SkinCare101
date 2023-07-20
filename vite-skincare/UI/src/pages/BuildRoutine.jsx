@@ -69,13 +69,13 @@ function BuildRoutine() {
                 <RoutineStyle>
                     <h2>AM Routine</h2>
                     <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
-                    <button onClick={(e) => SaveRoutine("am", AMPRODUCTS, PMPRODUCTS)}>Save Routine</button>
+                    <button onClick={(e) => SaveRoutine("am", amProducts, pmProducts)}>Save Routine</button>
                 </RoutineStyle>
 
                 <RoutineStyle>
                     <h2>PM Routine</h2>
                     <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
-                    <button onClick={(e) => SaveRoutine("pm", AMPRODUCTS, PMPRODUCTS)}>Save Routine</button>
+                    <button onClick={(e) => SaveRoutine("pm", amProducts, pmProducts)}>Save Routine</button>
                 </RoutineStyle>
 
             </DragDropContext>

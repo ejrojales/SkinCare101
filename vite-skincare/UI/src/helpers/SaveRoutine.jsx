@@ -5,6 +5,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
         const newRoutine = {
             title: "Acne Routine",
             author: "Emmanuel",
+            tag: "AM",
             comments: [{ "body": "No comment" }],
             hidden: false,
             products: {
@@ -13,7 +14,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
                 "protect": AMPRODUCTS[2]["AmProtect"]
             }
         };
-        const response = await fetch('/AMroutines', {
+        const response = await fetch('/routines', {
             method: 'POST',
             body: JSON.stringify(newRoutine),
             headers: {
@@ -30,6 +31,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
         const newRoutine = {
             title: "Acne Routine",
             author: "Emmanuel",
+            tag: "PM",
             comments: [{ "body": "No comment" }],
             hidden: false,
             products: {
@@ -38,7 +40,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
                 "protect": PMPRODUCTS[2]["PmProtect"]
             }
         };
-        const response = await fetch('/PMroutines', {
+        const response = await fetch('/routines', {
             method: 'POST',
             body: JSON.stringify(newRoutine),
             headers: {
