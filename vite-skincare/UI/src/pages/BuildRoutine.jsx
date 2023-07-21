@@ -4,19 +4,8 @@ import RoutineTable from '../components/RoutineTable.jsx'
 import AddProduct from '../components/AddProduct.jsx';
 import HandleOnDragEnd from '../helpers/HandleOnDragEnd.jsx';
 import SaveRoutine from '../helpers/SaveRoutine.jsx';
-import styled from 'styled-components'
-const Container = styled.div`
-    display:flex;
-    flex-direction: row;
-  `;
+import { List, ListItem, Card, Button } from "@material-tailwind/react";
 
-const RoutineStyle = styled.div`
-    flex-direction: column;
-    margin: 8px;
-    width: 220px;
-    border: 1px solid lightgrey;
-    border-radius: 2px;
-  `;
 
 function BuildRoutine() {
     const SAMPLEPRODUCTS = [
@@ -58,30 +47,40 @@ function BuildRoutine() {
     const [productId, setProductId] = useState(5);
 
     return (
-        < Container >
+        <div className="flex flex-row justify-center mt-72">
             <DragDropContext onDragEnd={(e) => HandleOnDragEnd(e, sampleProducts, amProducts, pmProducts, updateProducts, updateAmProducts, updatePmProducts)}>
 
-                <RoutineStyle>
-                    <h2>Sample Routine</h2>
+                <Card className="w-96 m-8">
+                    <h2 className="text-xl/8 font-semibold">Sample Routine</h2>
                     <RoutineTable products={sampleProducts} routine="Sample" />
-                </RoutineStyle>
+                </Card>
 
-                <RoutineStyle>
-                    <h2>AM Routine</h2>
-                    <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
-                    <button onClick={(e) => SaveRoutine("am", amProducts, pmProducts)}>Save Routine</button>
-                </RoutineStyle>
+                <div className="flex flex-col">
+                    <Card className="w-96 m-8">
+                        <h2 className="text-xl/8 font-semibold">AM Routine</h2>
+                        <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
+                    </Card>
+                    <div>
+                        <Button className="w-96" onClick={(e) => SaveRoutine("am", amProducts, pmProducts)}>Save Routine</Button>
+                    </div>
 
-                <RoutineStyle>
-                    <h2>PM Routine</h2>
-                    <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
-                    <button onClick={(e) => SaveRoutine("pm", amProducts, pmProducts)}>Save Routine</button>
-                </RoutineStyle>
+                </div>
+
+                <div className="flex flex-col">
+                    <Card className="w-96 m-8">
+                        <h2 className="text-xl/8 font-semibold">PM Routine</h2>
+                        <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
+                    </Card>
+                    <div>
+                        <Button className="w-96" onClick={(e) => SaveRoutine("pm", amProducts, pmProducts)}>Save Routine</Button>
+                    </div>
+                </div>
+
 
             </DragDropContext>
             <AddProduct amProds={amProducts} pmProds={pmProducts} updateAM={updateAmProducts} updatePM={updatePmProducts} productID={productId} setProductID={setProductId} />
 
-        </Container >
+        </div>
     )
 
 }

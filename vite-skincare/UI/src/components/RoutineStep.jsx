@@ -20,7 +20,7 @@ function RoutineStep({ products, step, routine }) {
 
         return (
             <>
-                <h2>{step}</h2>
+                <h2 className="text-xl/8 font-medium">{step}</h2>
                 <Droppable droppableId={dropId}>
                     {(provided) => (
                         <section {...provided.droppableProps} ref={provided.innerRef}>
@@ -38,7 +38,7 @@ function RoutineStep({ products, step, routine }) {
 
         return (
             <>
-                <h2>{step}</h2>
+                <h2 className="text-xl/8 font-medium">{step}</h2>
                 <Droppable droppableId={dropId}>
                     {(provided) => (
                         <article {...provided.droppableProps} ref={provided.innerRef}>

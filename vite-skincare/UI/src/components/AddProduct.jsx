@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { useState } from "react";
+import { Button } from "@material-tailwind/react";
+
 
 
 
@@ -44,7 +46,7 @@ function AddProduct({ amProds, pmProds, updateAM, updatePM, productID, setProduc
     }
 
     return (
-        <div>
+        <div className="m-8">
             <form method="post" onSubmit={handleSubmit}>
                 <label>
                     Product Name:
@@ -75,7 +77,7 @@ function AddProduct({ amProds, pmProds, updateAM, updatePM, productID, setProduc
                 </label> <br></br>
 
 
-                <button type="submit">Submit form</button>
+                <Button type="submit">Add Product</Button>
 
             </form>
         </div>
