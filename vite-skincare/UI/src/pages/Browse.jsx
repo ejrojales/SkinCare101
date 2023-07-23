@@ -1,5 +1,5 @@
-import { useLoaderData, json } from "react-router-dom";
-import RoutineList from "../components/RoutineList";
+import { useLoaderData } from "react-router-dom";
+import RoutineCard from "../components/RoutineCard";
 
 export function Browse() {
     const routines = useLoaderData()
@@ -13,11 +13,18 @@ export function Browse() {
     );
 
     return (
-        <div>
-            <h2>AM Routines</h2>
-            <RoutineList routines={amList} />
-            <h2>PM Routines</h2>
-            <RoutineList routines={pmList} />
+        <div className="flex flex-row justify-around">
+            <div>
+                <h2 className="mt-24 mb-8 text-2xl">AM Routines</h2>
+                <RoutineCard routineCard={amList} />
+            </div>
+
+            <div>
+                <h2 className="mt-24 mb-8 text-2xl">PM Routines</h2>
+                <RoutineCard routineCard={pmList} />
+            </div>
+
+
         </div>
 
     )

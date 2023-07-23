@@ -1,12 +1,14 @@
-const RoutineList = ({ routines }) => {
+import { Card } from "@material-tailwind/react"
+
+export default function RoutineCard({ routineCard }) {
 
     return (
         <div>
-            {routines.map((routine) => (
-                <div key={routine._id}>
-                    <h3>{routine.author}'s {routine.title}</h3>
-                    <ul>
-                        <li>
+            {routineCard.map((routine) => (
+                <Card className="mb-8" key={routine._id}>
+                    <h3 className="underline mb-4">{routine.author}'s {routine.title}</h3>
+                    <ul >
+                        <li className="mb-8">
                             <strong>Cleansing Products:</strong>
                             <ul>
                                 {routine.products.cleanse.map((product) => (
@@ -14,7 +16,7 @@ const RoutineList = ({ routines }) => {
                                 ))}
                             </ul>
                         </li>
-                        <li>
+                        <li className="mb-8">
                             <strong>Moisturizing Products:</strong>
                             <ul>
                                 {routine.products.moisturize.map((product) => (
@@ -31,10 +33,8 @@ const RoutineList = ({ routines }) => {
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </Card>
             ))}
         </div>
     )
 }
-
-export default RoutineList;

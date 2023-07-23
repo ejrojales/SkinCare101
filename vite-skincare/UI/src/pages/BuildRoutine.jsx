@@ -4,7 +4,7 @@ import RoutineTable from '../components/RoutineTable.jsx'
 import AddProduct from '../components/AddProduct.jsx';
 import HandleOnDragEnd from '../helpers/HandleOnDragEnd.jsx';
 import SaveRoutine from '../helpers/SaveRoutine.jsx';
-import { List, ListItem, Card, Button } from "@material-tailwind/react";
+import { Card, Button } from "@material-tailwind/react";
 
 
 function BuildRoutine() {
@@ -47,13 +47,8 @@ function BuildRoutine() {
     const [productId, setProductId] = useState(5);
 
     return (
-        <div className="flex flex-row justify-center mt-72">
+        <div className="flex flex-row mt-72">
             <DragDropContext onDragEnd={(e) => HandleOnDragEnd(e, sampleProducts, amProducts, pmProducts, updateProducts, updateAmProducts, updatePmProducts)}>
-
-                <Card className="w-96 m-8">
-                    <h2 className="text-xl/8 font-semibold">Sample Routine</h2>
-                    <RoutineTable products={sampleProducts} routine="Sample" />
-                </Card>
 
                 <div className="flex flex-col">
                     <Card className="w-96 m-8">
