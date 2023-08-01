@@ -31,10 +31,20 @@ const routineSchema = mongoose.Schema({
     }
 });
 
+const userSchema = mongoose.Schema({
+    name: String, // String is shorthand for {type: String}
+    email: String,
+    _id: String,
+    date: { type: Date, default: Date.now },
+    favorites: []
+});
+
 /**
  * Compile the model from the schema. This must be done after defining the schema.
  */
 const Routine = mongoose.model("Routine", routineSchema);
+const User = mongoose.model("User", userSchema);
+
 
 // creates a routine and returns a promise to save to the database
 const createRoutine = async (title, author, tag, comments, date, hidden, products) => {
@@ -42,14 +52,18 @@ const createRoutine = async (title, author, tag, comments, date, hidden, product
     return routine.save();
 };
 
+const createUser = async (name, email, _id, date, favorites) => {
+    const user = new User({ name: name, email: email, _id: _id, date: date, favorites: favorites });
+    return user.save();
+};
 
 const findRoutines = async () => {
     const query = Routine.find();
     return query.exec();
 };
 
-const findExerciseById = async (_id) => {
-    return await Exercise.findById(_id).exec();
+const findUserById = async (_id) => {
+    return await User.findById(_id).exec();
 };
 
 const updateExercise = async (filter, update) => {
@@ -62,5 +76,5 @@ const deleteById = async (_id) => {
     return result.deletedCount;
 }
 
-export { createRoutine, findRoutines }
+export { createRoutine, findRoutines, createUser, findUserById }
 

@@ -1,5 +1,15 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
+import { useEffect } from "react";
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Typography,
+    Tooltip,
+} from "@material-tailwind/react";
+import { getUserInfo } from "../components/getUserInfo";
 
 export function ProfilePage() {
     const { user } = useAuth0();
@@ -8,39 +18,64 @@ export function ProfilePage() {
         return null;
     }
 
+    const { getAccessTokenSilently } = useAuth0();
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const createUser = async () => {
+            const accessToken = await getAccessTokenSilently();
+            const data = await getUserInfo(accessToken);
+
+            if (!isMounted) {
+                return;
+            }
+            console.log(data)
+        };
+
+        createUser();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [getAccessTokenSilently]);
+
     return (
-        <div >
-            <h1>
-                Profile Page
-            </h1>
-            <div >
-                <p >
-                    <span>
-                        You can use the <strong>ID Token</strong> to get the profile
-                        information of an authenticated user.
-                    </span>
-                    <span>
-                        <strong>Only authenticated users can access this page.</strong>
-                    </span>
-                </p>
-                <div >
-                    <div >
-                        <img
-                            src={user.picture}
-                            alt="Profile"
-
-                        />
-                        <div >
-                            <h2 >{user.name}</h2>
-                            <span >{user.email}</span>
-                        </div>
-                    </div>
-                    <div >
-                        <h2>{JSON.stringify(user, null, 2)}</h2>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Card className="w-96">
+            <CardHeader floated={false} className="h-80">
+                <img src={user.picture} alt="profile-picture" />
+            </CardHeader>
+            <CardBody className="text-center">
+                <Typography variant="h4" color="blue-gray" className="mb-2">
+                    {user.name}
+                </Typography>
+            </CardBody>
+            <CardFooter className="flex justify-center gap-7 pt-2">
+                <Tooltip content="Like">
+                    <Typography
+                        as="a"
+                        href="#facebook"
+                        variant="lead"
+                        color="blue"
+                        textGradient
+                    >
+                        My Routines
+                        <i className="fab fa-facebook" />
+                    </Typography>
+                </Tooltip>
+                <Tooltip content="Follow">
+                    <Typography
+                        as="a"
+                        href="#instagram"
+                        variant="lead"
+                        color="purple"
+                        textGradient
+                    >
+                        Favorites
+                        <i className="fab fa-instagram" />
+                    </Typography>
+                </Tooltip>
+            </CardFooter>
+        </Card>
     );
 };

@@ -13,6 +13,8 @@ import { LogoutButton } from "../components/LogoutButton";
 import { PageLoader } from "../components/PageLoader";
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 import { useAuth0 } from "@auth0/auth0-react";
+import SimpleFooter from "../components/Footer";
+
 
 
 function NavList() {
@@ -116,7 +118,7 @@ const Layout = () => {
     return (
         <>
             <Auth0ProviderWithNavigate>
-                <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
+                <Navbar className="mx-auto w-full px-6 py-3">
                     <div className="flex items-center justify-between text-blue-gray-900">
                         <Typography
                             as="a"
@@ -147,6 +149,9 @@ const Layout = () => {
                 </Navbar>
 
                 <Outlet />
+                <SimpleFooter />
+
+
             </Auth0ProviderWithNavigate>
         </>
 

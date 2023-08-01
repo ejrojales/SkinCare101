@@ -77,7 +77,7 @@ function AddProduct({ amProds, pmProds, updateAM, updatePM, productID, setProduc
                 </label> <br></br>
 
 
-                <Button type="submit">Add Product</Button>
+                <Button type="submit" className="bg-brown-200">Add Product</Button>
 
             </form>
         </div>

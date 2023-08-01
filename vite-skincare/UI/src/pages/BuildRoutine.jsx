@@ -47,7 +47,7 @@ function BuildRoutine() {
     const [productId, setProductId] = useState(5);
 
     return (
-        <div className="flex flex-row mt-72">
+        <div className="flex flex-row justify-center mt-72">
             <DragDropContext onDragEnd={(e) => HandleOnDragEnd(e, sampleProducts, amProducts, pmProducts, updateProducts, updateAmProducts, updatePmProducts)}>
 
                 <div className="flex flex-col">
@@ -56,7 +56,7 @@ function BuildRoutine() {
                         <RoutineTable products={amProducts} routine="Am" updateProducts={updateAmProducts} productId={productId} setProductId={setProductId} />
                     </Card>
                     <div>
-                        <Button className="w-96" onClick={(e) => SaveRoutine("am", amProducts, pmProducts)}>Save Routine</Button>
+                        <Button className="w-96 bg-brown-200" onClick={(e) => SaveRoutine("am", amProducts, pmProducts)}>Save Routine</Button>
                     </div>
 
                 </div>
@@ -67,7 +67,7 @@ function BuildRoutine() {
                         <RoutineTable products={pmProducts} routine="Pm" updateProducts={updatePmProducts} productId={productId} setProductId={setProductId} />
                     </Card>
                     <div>
-                        <Button className="w-96" onClick={(e) => SaveRoutine("pm", amProducts, pmProducts)}>Save Routine</Button>
+                        <Button className="w-96 bg-brown-200" onClick={(e) => SaveRoutine("pm", amProducts, pmProducts)}>Save Routine</Button>
                     </div>
                 </div>
 

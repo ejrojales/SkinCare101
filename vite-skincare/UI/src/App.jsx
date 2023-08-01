@@ -14,6 +14,7 @@ import './App.css'
 import BuildRoutine from './pages/BuildRoutine.jsx';
 import CallbackPage from './pages/Callback.jsx';
 import { AuthenticationGuard } from './components/Authentication-Guard.jsx';
+import { ProtectedPage } from './pages/Protected.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route index element={<BuildRoutine />} />
       <Route path="/browse" element={<Browse />} loader={dataLoader} />
       <Route path="/profile" element={<AuthenticationGuard component={ProfilePage} />} />
+      <Route path="/protected" element={<AuthenticationGuard component={ProtectedPage} />} />
       <Route path="/callback" element={<CallbackPage />} />
     </Route>
   )

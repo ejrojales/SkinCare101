@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/routines': 'http://localhost:3000'
+      '/routines': 'http://localhost:3000',
+      '/protectedResource': 'http://localhost:3000'
     }
   }
 
