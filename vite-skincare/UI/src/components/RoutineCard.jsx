@@ -6,7 +6,7 @@ export default function RoutineCard({ routineCard }) {
         <div>
             {routineCard.map((routine) => (
                 <Card className="mb-8" key={routine._id}>
-                    <h3 className="underline mb-4">{routine.author}'s {routine.title}</h3>
+                    <h3 className="font-bold mb-4">{routine.author}: {routine.title}</h3>
                     <ul >
                         <li className="mb-8">
                             <strong>Cleansing Products:</strong>

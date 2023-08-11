@@ -21,28 +21,26 @@ export function ProfilePage() {
     const { getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
-        let isMounted = true;
+
+        if (!user) {
+            return
+        }
 
         const createUser = async () => {
-            const accessToken = await getAccessTokenSilently();
-            const data = await getUserInfo(accessToken);
-
-            if (!isMounted) {
+            if (!user) {
                 return;
             }
-            console.log(data)
+            const accessToken = await getAccessTokenSilently();
+            const data = await getUserInfo(accessToken, user.sub);
+
         };
 
         createUser();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [getAccessTokenSilently]);
+    }, [user, getAccessTokenSilently]);
 
     return (
         <Card className="w-96">
-            <CardHeader floated={false} className="h-80">
+            <CardHeader floated={false} className="flex justify-center h-80">
                 <img src={user.picture} alt="profile-picture" />
             </CardHeader>
             <CardBody className="text-center">

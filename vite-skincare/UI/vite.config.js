@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/routines': 'http://localhost:3000',
-      '/protectedResource': 'http://localhost:3000'
+      '/protectedResource': 'http://localhost:3000',
+      'google-oauth2|111493949414557487066/routines': 'http://localhost:3000'
     }
   }
 

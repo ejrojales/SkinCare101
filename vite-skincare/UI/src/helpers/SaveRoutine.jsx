@@ -1,10 +1,16 @@
-const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
+import { useAuth0 } from "@auth0/auth0-react";
 
+const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS, user, routineName) => {
+
+    const { getAccessTokenSilently } = useAuth0();
+
+    console.log(user)
     if (routineTime === "am") {
 
         const newRoutine = {
-            title: "Acne Routine",
-            author: "Emmanuel",
+            title: routineName,
+            author: user.name,
+            authorID: user.sub,
             tag: "AM",
             comments: [{ "body": "No comment" }],
             hidden: false,
@@ -29,8 +35,9 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS) => {
 
     } else {
         const newRoutine = {
-            title: "Acne Routine",
-            author: "Emmanuel",
+            title: routineName,
+            author: user.name,
+            authorID: user.sub,
             tag: "PM",
             comments: [{ "body": "No comment" }],
             hidden: false,

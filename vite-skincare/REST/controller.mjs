@@ -2,12 +2,14 @@ import 'dotenv/config';
 import * as routines from './model.mjs';
 import express from 'express';
 import { auth } from 'express-oauth2-jwt-bearer';
-
+import cors from 'cors'
 
 
 const app = express();
 
+
 app.use(express.json());
+app.use(cors());
 
 const PORT = process.env.PORT;
 
@@ -39,25 +41,47 @@ app.get('/routines',
             });
     });
 
+app.get('/:user_ID/routines',
+    (req, res) => {
+        console.log("test route");
+
+        routines.findUserRoutines(req.params.user_ID)
+            .then(routineList => {
+                res.json(routineList);
+            })
+            .catch(error => {
+                console.error(error);
+                res.send({ Error: 'Request failed' });
+            });
+    });
+
 app.post('/routines', (req, res) => {
-    routines.createRoutine(req.body.title, req.body.author, req.body.tag, req.body.comments, req.body.date, req.body.hidden, req.body.products)
+    routines.createRoutine(req.body.title, req.body.author, req.body.authorID, req.body.tag, req.body.comments, req.body.date, req.body.hidden, req.body.products)
         .then(routine => {
             res.status(201).json(routine)
         })
 });
 
 
-app.get('/protectedResource', jwtCheck, async (req, res) => {
+app.get('/users/:user_ID', jwtCheck, async (req, res) => {
     const token = req.auth.token
+    console.log(token)
+
+    const decodedUser_ID = decodeURI(req.params.user_ID)
+    console.log(decodedUser_ID)
 
     const userInfo = await getUserInfo(token);
-    routines.findUserById(userInfo.sub)
+    console.log(userInfo)
+
+    routines.findUserByUserId(decodedUser_ID)
         .then(user => {
             if (user !== null) {
-                res.status(201).json(user)
+                res.status(200).json(user)
             } else {
-                routines.createUser(userInfo.given_name, userInfo.email, userInfo.sub, userInfo.date, userInfo.favorites)
-                    .then(user => { res.status(201).json(user) }
+                routines.createUser(userInfo.name, userInfo.email, userInfo.sub, userInfo.date, userInfo.favorites)
+                    .then(user => {
+                        res.status(201).json(user)
+                    }
                     )
             }
         })
