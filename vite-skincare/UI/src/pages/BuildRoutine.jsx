@@ -54,16 +54,17 @@ function BuildRoutine() {
     const [amRoutineName, setAMRoutineName] = useState("AM Routine");
     const [pmRoutineName, setPMRoutineName] = useState("PM Routine");
 
-    // wait for the user information to be fetched
+    // If authenticated, wait for the user information to be fetched and send user_id to save routine
     useEffect(() => {
 
         if (!user) {
             return
         }
+
         async function getUserInfo() {
+            console.log(user)
+            /*
             const accessToken = await getAccessTokenSilently();
-            //console.log(accessToken)
-            //console.log(user.sub)
 
             const config = {
                 headers: {
@@ -73,20 +74,15 @@ function BuildRoutine() {
             };
             const response = await fetch(`/${user.sub}/routines`, config);
             const data = await response.json()
-
+*/
         }
         getUserInfo();
 
 
     }, [user])
 
-
     return (
         <>
-            <div>
-                test
-            </div>
-
             <div className="flex flex-row justify-center mt-72">
                 <DragDropContext onDragEnd={(e) => HandleOnDragEnd(e, sampleProducts, amProducts, pmProducts, updateProducts, updateAmProducts, updatePmProducts)}>
 

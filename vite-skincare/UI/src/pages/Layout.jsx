@@ -149,8 +149,6 @@ const Layout = () => {
                 </Navbar>
 
                 <Outlet />
-                <SimpleFooter />
-
 
             </Auth0ProviderWithNavigate>
         </>
