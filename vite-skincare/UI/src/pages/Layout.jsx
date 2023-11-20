@@ -13,8 +13,7 @@ import { LogoutButton } from "../components/LogoutButton";
 import { PageLoader } from "../components/PageLoader";
 import { Auth0ProviderWithNavigate } from "../auth0-provider-with-navigate";
 import { useAuth0 } from "@auth0/auth0-react";
-import SimpleFooter from "../components/Footer";
-
+import { FooterWithSocialLinks } from "../components/Footer";
 
 
 function NavList() {
@@ -149,6 +148,7 @@ const Layout = () => {
                 </Navbar>
 
                 <Outlet />
+                <FooterWithSocialLinks></FooterWithSocialLinks>
 
             </Auth0ProviderWithNavigate>
         </>

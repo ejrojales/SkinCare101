@@ -7,7 +7,6 @@ import SaveRoutine from '../helpers/SaveRoutine.jsx';
 import { Card, Button } from "@material-tailwind/react";
 import { useAuth0 } from "@auth0/auth0-react";
 import EditableRoutineName from '../components/EditableRoutineName.jsx';
-import { PageLoader } from '../components/PageLoader.jsx';
 
 
 function BuildRoutine() {

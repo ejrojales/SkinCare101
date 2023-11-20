@@ -34,9 +34,9 @@ function App() {
   // A proxy server is setup in the vit.config file so that all calls with a prefix  is sent to the backend server.
 
   return (
-    <div>
+    <>
       <RouterProvider router={router} />
-    </div >
+    </>
   );
 }
 

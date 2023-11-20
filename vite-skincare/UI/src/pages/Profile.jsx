@@ -22,6 +22,7 @@ export function ProfilePage() {
 
     const { getAccessTokenSilently } = useAuth0();
 
+    // Get user routines
     useEffect(() => {
 
         if (!user) {
@@ -53,10 +54,10 @@ export function ProfilePage() {
                     </Typography>
                 </CardBody>
             </Card>
-            <div className="flex justify-around">
-                <RoutineCard routineCard={userRoutines} />
-            </div>
 
+            <div className="flex justify-around">
+                <RoutineCard routines={userRoutines} setUserRoutines={setUserRoutines} page={"profile"} />
+            </div>
         </>
     );
 };

@@ -21,7 +21,7 @@ db.once("open", () => {
 const routineSchema = mongoose.Schema({
     title: String, // String is shorthand for {type: String}
     author: String,
-    authorID: String,
+    author_ID: String,
     tag: String,
     comments: [{ body: String }],
     date: { type: Date, default: Date.now },
@@ -49,8 +49,8 @@ const User = mongoose.model("User", userSchema);
 
 
 // creates a routine and returns a promise to save to the database
-const createRoutine = async (title, author, authorID, tag, comments, date, hidden, products) => {
-    const routine = new Routine({ title: title, author: author, authorID: authorID, tag: tag, comments: comments, date: date, hidden: hidden, products: products });
+const createRoutine = async (title, author, author_ID, tag, comments, date, hidden, products) => {
+    const routine = new Routine({ title: title, author: author, author_ID: author_ID, tag: tag, comments: comments, date: date, hidden: hidden, products: products });
     return routine.save();
 };
 
@@ -64,14 +64,9 @@ const findRoutines = async () => {
     return query.exec();
 };
 
-const findUserRoutines = async (authorID) => {
-    const query = Routine.find({ authorID: authorID })
+const findUserRoutines = async (author_ID) => {
+    const query = Routine.find({ author_ID: author_ID })
     return query.exec();
-};
-
-const findUserByUserId = async (user_id) => {
-    const query = User.findOne({ user_id: user_id });
-    return query.exec()
 };
 
 const updateExercise = async (filter, update) => {
@@ -79,10 +74,10 @@ const updateExercise = async (filter, update) => {
     return result.modifiedCount;
 };
 
-const deleteById = async (_id) => {
-    const result = await Exercise.deleteOne({ _id: _id });
+const deleteRoutineById = async (_id) => {
+    const result = await Routine.deleteOne({ _id: _id });
     return result.deletedCount;
 }
 
-export { createRoutine, findRoutines, findUserRoutines, createUser, findUserByUserId }
+export { createRoutine, findRoutines, findUserRoutines, createUser, deleteRoutineById }
 

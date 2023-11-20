@@ -16,12 +16,12 @@ export function Browse() {
         <div className="flex flex-row justify-around">
             <div>
                 <h2 className="mt-24 mb-8 text-2xl">AM Routines</h2>
-                <RoutineCard routineCard={amList} />
+                <RoutineCard routines={amList} page={"browse"} setUserRoutines={"None"} />
             </div>
 
             <div>
                 <h2 className="mt-24 mb-8 text-2xl">PM Routines</h2>
-                <RoutineCard routineCard={pmList} />
+                <RoutineCard routines={pmList} page={"browse"} setUserRoutines={"None"} />
             </div>
 
 
