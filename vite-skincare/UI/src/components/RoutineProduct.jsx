@@ -1,20 +1,24 @@
 import { Draggable } from "react-beautiful-dnd";
+import { List, ListItem } from "@material-tailwind/react";
+import { useState } from "react";
 
 function RoutineProduct({ products }) {
 
     return (
 
-        <ul>
+        <List>
             {products.map((product, index) => {
                 return (
                     <Draggable key={product.id} draggableId={product.id.toString()} index={index}>
                         {(provided) => (
-                            <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>{product.name}</li>
+                            <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                                <ListItem className="text-blue-700 flex justify-center" >{product.name}</ListItem>
+                            </div>
                         )}
                     </Draggable>
                 )
             })}
-        </ul>
+        </List>
 
     );
 }

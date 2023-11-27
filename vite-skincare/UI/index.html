@@ -6,10 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+  <!-- Alpine Plugins -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+  <!-- Alpine Core -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   <title>Skincare Builder</title>
 </head>
 
-<body class='flex flex-col min-h-screen text-center'>
+<body class='flex flex-col min-h-screen text-center' x-data>
   <div class='h-full flex flex-col grow' id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter } from "@material-tailwind/react"
+import { Button, Card, CardBody, CardFooter, List, ListItem } from "@material-tailwind/react"
 import DeleteRoutine from "../helpers/DeleteRoutine"
 
 export default function RoutineCard({ routines, page, setUserRoutines }) {
@@ -8,37 +8,38 @@ export default function RoutineCard({ routines, page, setUserRoutines }) {
     return (
         <div>
             {routines.map((routine) => (
-                <Card className="mb-8" key={routine._id}>
+                <Card key={routine._id}>
                     <CardBody>
-                        <h3 className="font-bold mb-4">{routine.author} {routine.title} {routine._id}</h3>
+                        <h3 className="font-bold mb-4">{routine.author} {routine.title}</h3>
                         <ul >
-                            <li className="mb-8">
+                            <li className="mb-4">
                                 <strong>Cleansing Products:</strong>
-                                <ul>
+                                <List>
                                     {routine.products.cleanse.map((product) => (
-                                        <li key={product.id}>{product.name}</li>
+                                        <ListItem className="text-blue-700 flex justify-center text-center" key={product.id}>{product.name}</ListItem>
                                     ))}
-                                </ul>
+                                </List>
                             </li>
-                            <li className="mb-8">
+                            <li className="mb-4">
                                 <strong>Moisturizing Products:</strong>
-                                <ul>
+                                <List>
                                     {routine.products.moisturize.map((product) => (
-                                        <li key={product.id}>{product.name}</li>
+                                        <ListItem className="text-blue-700 flex justify-center text-center" key={product.id}>{product.name}</ListItem>
                                     ))}
-                                </ul>
+                                </List>
                             </li>
                             <li>
                                 <strong>Protecting Products:</strong>
-                                <ul>
+                                <List>
                                     {routine.products.protect.map((product) => (
-                                        <li key={product.id}>{product.name}</li>
+                                        <ListItem className="text-blue-700 flex justify-center text-center" key={product.id}>{product.name}</ListItem>
                                     ))}
-                                </ul>
+                                </List>
                             </li>
                         </ul>
                     </CardBody>
-                    <CardFooter>
+
+                    <CardFooter className="p-0">
                         {page === "profile" && (
                             <Button onClick={(e) => { DeleteRoutine(routine._id, routines, setUserRoutines) }} color="red">Delete Routine</Button>
                         )}
