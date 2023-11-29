@@ -64,7 +64,7 @@ export default function LandingPage() {
                             Build custom routines for morning or night.
                         </Typography>
 
-                        <Button color="black" variant="gradient" className="rounded-full flex justify-center w-1/5">
+                        <Button variant="gradient" className="rounded-full flex justify-center w-1/5">
                             <Typography variant="h5" color="white">
                                 <Link to='/routines'>
                                     Get Started

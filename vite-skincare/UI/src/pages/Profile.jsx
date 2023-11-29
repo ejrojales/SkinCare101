@@ -43,21 +43,29 @@ export function ProfilePage() {
     }, [user, getAccessTokenSilently]);
 
     return (
-        <>
-            <Card className="w-96">
-                <CardHeader floated={false} className="flex justify-center h-80">
-                    <img src={user.picture} alt="profile-picture" />
-                </CardHeader>
-                <CardBody className="text-center">
-                    <Typography variant="h4" color="blue-gray" className="mb-2">
-                        {user.name}
-                    </Typography>
-                </CardBody>
-            </Card>
-
-            <div className="flex justify-around">
-                <RoutineCard routines={userRoutines} setUserRoutines={setUserRoutines} page={"profile"} />
+        <div className="flex m-16">
+            <div className="min-w-[40vh]">
+                <Card className="h-auto w-auto min-w-full">
+                    <CardHeader floated={false} className="flex justify-center h-80">
+                        <img src={user.picture} alt="profile-picture" />
+                    </CardHeader>
+                    <CardBody className="text-center">
+                        <Typography variant="h4" color="blue-gray" className="mb-2">
+                            {user.name}
+                        </Typography>
+                    </CardBody>
+                </Card>
             </div>
-        </>
+
+
+
+
+            <div className="flex flex-col">
+                <Typography variant="h2">My Routines</Typography>
+                <div className="flex flex-wrap content-start">
+                    <RoutineCard routines={userRoutines} setUserRoutines={setUserRoutines} page={"profile"} />
+                </div>
+            </div>
+        </div>
     );
 };

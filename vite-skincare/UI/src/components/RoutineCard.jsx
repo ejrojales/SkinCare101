@@ -6,9 +6,9 @@ export default function RoutineCard({ routines, page, setUserRoutines }) {
     // If on user profile page, card footer displays delete routine button
     // else if on browse page, card footer displays user avatar and date created
     return (
-        <div>
+        <>
             {routines.map((routine) => (
-                <Card key={routine._id}>
+                <Card className="m-4" key={routine._id}>
                     <CardBody>
                         <h3 className="font-bold mb-4">{routine.author} {routine.title}</h3>
                         <ul >
@@ -47,6 +47,6 @@ export default function RoutineCard({ routines, page, setUserRoutines }) {
 
                 </Card>
             ))}
-        </div>
+        </>
     )
 }

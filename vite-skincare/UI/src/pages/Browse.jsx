@@ -31,6 +31,6 @@ export function Browse() {
 };
 
 export const dataLoader = async () => {
-    const routineList = await fetch('/routines');
+    const routineList = await fetch('http://localhost:3000/routines');
     return routineList
 }

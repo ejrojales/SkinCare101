@@ -16,7 +16,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS, user, routineNam
                 "protect": AMPRODUCTS[2]["AmProtect"]
             }
         };
-        const response = await fetch('/routines', {
+        const response = await fetch('http://localhost:3000/routines', {
             method: 'POST',
             body: JSON.stringify(newRoutine),
             headers: {
@@ -43,7 +43,7 @@ const SaveRoutine = async (routineTime, AMPRODUCTS, PMPRODUCTS, user, routineNam
                 "protect": PMPRODUCTS[2]["PmProtect"]
             }
         };
-        const response = await fetch('/routines', {
+        const response = await fetch('http://localhost:3000/routines', {
             method: 'POST',
             body: JSON.stringify(newRoutine),
             headers: {

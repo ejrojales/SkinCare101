@@ -12,7 +12,6 @@ import { ProfilePage } from './pages/Profile.jsx';
 import Layout from './pages/Layout.jsx';
 import './App.css'
 import BuildRoutine from './pages/BuildRoutine.jsx';
-import CallbackPage from './pages/Callback.jsx';
 import LandingPage from './pages/Landing.jsx'
 import { AuthenticationGuard } from './components/Authentication-Guard.jsx';
 import { ProtectedPage } from './pages/Protected.jsx';
@@ -25,7 +24,6 @@ const router = createBrowserRouter(
       <Route path="/browse" element={<Browse />} loader={dataLoader} />
       <Route path="/profile" element={<AuthenticationGuard component={ProfilePage} />} />
       <Route path="/protected" element={<AuthenticationGuard component={ProtectedPage} />} />
-      <Route path="/callback" element={<CallbackPage />} />
     </Route>
   )
 
@@ -33,7 +31,6 @@ const router = createBrowserRouter(
 
 
 function App() {
-  // A proxy server is setup in the vit.config file so that all calls with a prefix  is sent to the backend server.
 
   return (
     <>
