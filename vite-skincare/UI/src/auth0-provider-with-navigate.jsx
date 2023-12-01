@@ -7,7 +7,7 @@ export const Auth0ProviderWithNavigate = ({ children }) => {
 
     const domain = "dev-o5rxkrrd1uyhy7ej.us.auth0.com";
     const clientId = "nLPCeWdxE1ZxHaZHNsW9dyO5NZKoqcck";
-    const redirectUri = "dev-o5rxkrrd1uyhy7ej.us.auth0.com";
+    const redirectUri = "https://local.d1g59zf0mc35py.amplifyapp.com";
     const audience = "https://tmcfzmku2xu5akd5qp2kzphhvm0onvhw.lambda-url.ap-southeast-2.on.aws/"
 
     const onRedirectCallback = (appState) => {

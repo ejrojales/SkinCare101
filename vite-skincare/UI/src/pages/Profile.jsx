@@ -5,9 +5,7 @@ import {
     Card,
     CardHeader,
     CardBody,
-    CardFooter,
     Typography,
-    Tooltip,
 } from "@material-tailwind/react";
 import { getUserInfo } from "../components/getUserInfo";
 import RoutineCard from "../components/RoutineCard";
