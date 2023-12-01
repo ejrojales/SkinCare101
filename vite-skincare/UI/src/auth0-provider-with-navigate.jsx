@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 export const Auth0ProviderWithNavigate = ({ children }) => {
     const navigate = useNavigate();
 
-    const domain = import.meta.env.VITE_AUTH0_DOMAIN;
-    const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
-    const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
-    const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+    const domain = "dev-o5rxkrrd1uyhy7ej.us.auth0.com";
+    const clientId = "nLPCeWdxE1ZxHaZHNsW9dyO5NZKoqcck";
+    const redirectUri = "dev-o5rxkrrd1uyhy7ej.us.auth0.com";
+    const audience = "https://tmcfzmku2xu5akd5qp2kzphhvm0onvhw.lambda-url.ap-southeast-2.on.aws/"
 
     const onRedirectCallback = (appState) => {
         navigate(appState?.returnTo || window.location.pathname);

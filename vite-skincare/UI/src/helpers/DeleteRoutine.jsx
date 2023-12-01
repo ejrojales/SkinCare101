@@ -1,6 +1,6 @@
 const DeleteRoutine = async (routineID, routines, setUserRoutines) => {
 
-    const response = await fetch(`http://localhost:3000/routines/${routineID}`, {
+    const response = await fetch(`https://tmcfzmku2xu5akd5qp2kzphhvm0onvhw.lambda-url.ap-southeast-2.on.aws/routines/${routineID}`, {
         method: "DELETE"
     })
 

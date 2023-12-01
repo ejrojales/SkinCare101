@@ -5,10 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      '/protectedResource': 'http://localhost:3000',
-      'google-oauth2|111493949414557487066/routines': 'http://localhost:3000'
-    }
+    proxy: {}
   }
 
 })

@@ -31,6 +31,6 @@ export function Browse() {
 };
 
 export const dataLoader = async () => {
-    const routineList = await fetch('http://localhost:3000/routines');
+    const routineList = await fetch('https://tmcfzmku2xu5akd5qp2kzphhvm0onvhw.lambda-url.ap-southeast-2.on.aws/routines');
     return routineList
 }
