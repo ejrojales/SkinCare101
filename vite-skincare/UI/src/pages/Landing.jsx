@@ -1,6 +1,5 @@
 import { Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import ocean from "../assets/ocean.jpg"
 import RoutineCard from "../components/RoutineCard";
 import { List, ListItem } from "@material-tailwind/react";
 import 'animate.css';
