@@ -3,7 +3,7 @@ import 'dotenv/config';
 import { auth } from 'express-oauth2-jwt-bearer';
 
 mongoose.connect(
-    process.env.MONGODB_CONNECT_STRING,
+    "mongodb+srv://ejrojales:Emachine@skincare.sdtqy33.mongodb.net/SkinCare?retryWrites=true&w=majority",
     { useNewUrlParser: true }
 );
 
