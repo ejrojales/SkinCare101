@@ -10,7 +10,6 @@ import { Browse, dataLoader } from './pages/Browse.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import { ProfilePage } from './pages/Profile.jsx';
 import Layout from './pages/Layout.jsx';
-import './App.css'
 import BuildRoutine from './pages/BuildRoutine.jsx';
 import LandingPage from './pages/Landing.jsx'
 import { AuthenticationGuard } from './components/Authentication-Guard.jsx';
